@@ -42,13 +42,6 @@ class User(UserMixin, db.Model):
     def verify_password(self,password):
         return check_password_hash(self.hashed_password,password)
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
     def __repr__(self):
         return "User: %s" %str(self.username)
 
@@ -97,3 +90,36 @@ class Subscriber(db.Model):
 
     def __repr__(self):
         return f'Subscriber {self.email}'
+
+# Blog Class
+class Blog(db.Model):
+    __tablename__ = "blogs"
+
+    id = db.Column(db.Integer, primary_key = True)
+    post_title = db.Column(db.String)
+    post_content = db.Column(db.Text)
+    posted_at = db.Column(db.DateTime)
+    post_by = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comments = db.relationship("Comment", 
+                                foreign_keys = "Comment.blogs_id", 
+                                backref = "blog", 
+                                lazy = "dynamic")
+
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_blog(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @classmethod
+    def get_user_blog(cls,id):
+        blogs = Blog.query.filter_by(user_id = id).order_by(Blog.posted_at.desc()).all()
+        return blogs
+
+    @classmethod
+    def get_all_posts(cls):
+        return Blog.query.order_by(Blog.posted_at).all()
+
