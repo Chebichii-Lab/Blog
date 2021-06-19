@@ -40,3 +40,12 @@ def blog(id):
         return redirect(url_for("main.blog", id = blog.id))
 
     return render_template("post.html",blog = blog,comments = comments,comment_form = comment_form,comment_count = comment_count)
+
+
+@main.route("/blog/<int:id>/<int:comment_id>/delete")
+def delete_comment(id, comment_id):
+    blog = Blog.query.filter_by(id = id).first()
+    comment = Comment.query.filter_by(id = comment_id).first()
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(url_for("main.blog", id = blog.id))
