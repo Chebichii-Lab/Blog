@@ -39,7 +39,7 @@ def blog(id):
         new_comment.save_comment()
         return redirect(url_for("main.blog", id = blog.id))
 
-    return render_template("post.html",blog = blog,comments = comments,comment_form = comment_form,comment_count = comment_count)
+    return render_template("blog.html",blog = blog,comments = comments,comment_form = comment_form,comment_count = comment_count)
 
 
 @main.route("/blog/<int:id>/<int:comment_id>/delete")
@@ -49,3 +49,22 @@ def delete_comment(id, comment_id):
     db.session.delete(comment)
     db.session.commit()
     return redirect(url_for("main.blog", id = blog.id))
+
+
+@main.route("/blog/<int:id>/update", methods = ["POST", "GET"])
+@login_required
+def change_blog(id):
+    blog = Blog.query.filter_by(id = id).first()
+    edit_form = UpdateBlogForm()
+
+    if edit_form.validate_on_submit():
+        blog.post_title = edit_form.title.data
+        edit_form.title.data = ""
+        blog.post_content = edit_form.post.data
+        edit_form.post.data = ""
+
+        db.session.add(blog)
+        db.session.commit()
+        return redirect(url_for("main.blog", id = blog.id))
+
+    return render_template("change_blog.html", blog = blog,edit_form = edit_form)
