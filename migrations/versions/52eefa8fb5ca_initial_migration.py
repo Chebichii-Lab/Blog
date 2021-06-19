@@ -1,8 +1,8 @@
 """Initial Migration
 
-Revision ID: 65022d80e930
+Revision ID: 52eefa8fb5ca
 Revises: 
-Create Date: 2021-06-19 11:06:23.163154
+Create Date: 2021-06-19 17:11:34.211863
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '65022d80e930'
+revision = '52eefa8fb5ca'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,10 +37,9 @@ def upgrade():
     op.create_index(op.f('ix_users_username'), 'users', ['username'], unique=False)
     op.create_table('blogs',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('post_title', sa.String(), nullable=True),
-    sa.Column('post_content', sa.Text(), nullable=True),
-    sa.Column('posted_at', sa.DateTime(), nullable=True),
-    sa.Column('post_by', sa.String(), nullable=True),
+    sa.Column('title', sa.String(length=255), nullable=False),
+    sa.Column('content', sa.Text(), nullable=False),
+    sa.Column('posted', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
