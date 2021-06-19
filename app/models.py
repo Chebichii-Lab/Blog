@@ -120,7 +120,7 @@ class Blog(db.Model):
         return blogs
 
     @classmethod
-    def get_all_posts(cls):
+    def get_all_blogs(cls):
         return Blog.query.order_by(Blog.posted_at).all()
 
 #Random Quote Class
