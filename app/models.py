@@ -16,7 +16,7 @@ def load_user(user_id):
 # User Class
 class User(UserMixin, db.Model):
     """ 
-    class modelling the users 
+    class model users 
     """
 
     __tablename__ = 'users'
@@ -80,3 +80,20 @@ class Comment(db.Model):
 
     def __repr__(self):
         return f'Comment {self.comment}'
+
+# Subscriber Class
+class Subscriber(db.Model):
+    '''
+    model class for subscribers
+    '''
+    __tablename__='subscribers'
+
+    id=db.Column(db.Integer,primary_key=True)
+    email = db.Column(db.String(255),unique=True,index=True)
+
+    def save_subscriber(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Subscriber {self.email}'
