@@ -6,7 +6,7 @@ from .forms import (UpdateProfile, BlogForm, CommentForm, UpdateBlogForm)
 from datetime import datetime
 from .. import db
 from ..requests import get_quote
-from ..email import mail_message, notification_message
+from ..email import mail_message
 
 @main.route("/", methods = ["GET", "POST"])
 def index():
@@ -83,8 +83,8 @@ def new_blog():
         new_blog.save_blog()
         subscriber = Subscriber.query.all()
         for subscriber in subscriber:
-            notification_message(blog_title, 
-                            "email/notification", subscriber.email, new_blog = new_blog)
+            # notification_message(blog_title, 
+            #                 "email/notification", subscriber.email, new_blog = new_blog)
             pass
         return redirect(url_for("main.post", id = new_blog.id))
     
