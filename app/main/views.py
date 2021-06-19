@@ -6,7 +6,7 @@ from .forms import (UpdateProfile, BlogForm, CommentForm, UpdateBlogForm)
 from datetime import datetime
 from .. import db
 from ..requests import get_quote
-from ..email import mail_message
+from ..email import mail_message, notification_message
 
 @main.route("/", methods = ["GET", "POST"])
 def index():
@@ -14,10 +14,10 @@ def index():
     quote = get_quote()
 
     if request.method == "POST":
-        new_sub = Subscriber(email = request.form.get("subscriber"))
-        db.session.add(new_sub)
+        new_subscriber = Subscriber(email = request.form.get("subscriber"))
+        db.session.add(new_subscriber)
         db.session.commit()
-        mail_message("Thank you for subscribing to BLOG IT!", "email/welcome", new_sub.email)
+        mail_message("Thank you for subscribing to BLOG IT!", "email/welcome", new_subscriber.email)
     return render_template("index.html",blogs= blogs,quote = quote)
 
 
@@ -68,3 +68,25 @@ def change_blog(id):
         return redirect(url_for("main.blog", id = blog.id))
 
     return render_template("change_blog.html", blog = blog,edit_form = edit_form)
+
+
+@main.route("/blog/new", methods = ["POST", "GET"])
+@login_required
+def new_blog():
+    blog_form = BlogForm()
+    if blog_form.validate_on_submit():
+        post_title = blog_form.title.data
+        blog_form.title.data = ""
+        post_content = ""
+        blog_form.post.data = ""
+        new_blog = Blog(post_title = post_title,post_content = post_content,posted_at = datetime.now(),post_by = current_user.username,user_id = current_user.id)
+        new_blog.save_post()
+        subscriber = Subscriber.query.all()
+        for subscriber in subscriber:
+            notification_message(post_title, 
+                            "email/notification", subscriber.email, new_blog = new_blog)
+            pass
+        return redirect(url_for("main.post", id = new_blog.id))
+    
+    return render_template("new_blog.html",
+                            post_form = blog_form)
