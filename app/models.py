@@ -13,7 +13,7 @@ def load_user(user_id):
     """
     return User.query.get(int(user_id))
 
-
+# User Class
 class User(UserMixin, db.Model):
     """ 
     class modelling the users 
@@ -21,7 +21,6 @@ class User(UserMixin, db.Model):
 
     __tablename__ = 'users'
 
-    #create the columns
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255),index = True)
     email = db.Column(db.String(255), unique=True, index=True)
@@ -52,3 +51,32 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return "User: %s" %str(self.username)
+
+# Comment Class
+class Comment(db.Model):
+    '''
+    class for model comments
+    '''
+    __tablename__='comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    comment = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.remove(self)
+        db.session.commit()
+
+    def get_comment(id):
+        comment = Comment.query.all(id=id)
+        return comment
+
+
+    def __repr__(self):
+        return f'Comment {self.comment}'
