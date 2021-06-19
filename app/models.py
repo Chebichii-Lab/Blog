@@ -123,3 +123,11 @@ class Blog(db.Model):
     def get_all_posts(cls):
         return Blog.query.order_by(Blog.posted_at).all()
 
+#Random Quote Class
+class Quote:
+    """
+    Blueprint class for quotes consumed from API
+    """
+    def __init__(self, author, quote):
+        self.author = author
+        self.quote = quote
