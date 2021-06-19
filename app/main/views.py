@@ -22,7 +22,7 @@ def index():
 
 
 @main.route("/blog/<int:id>", methods = ["POST", "GET"])
-def blog(id):
+def make_comment(id):
     blog = Blog.query.filter_by(id = id).first()
     comments = Comment.query.filter_by(blog_id = id).all()
     comment_form = CommentForm()
@@ -31,11 +31,11 @@ def blog(id):
     if comment_form.validate_on_submit():
         comment = comment_form.comment.data
         comment_form.comment.data = ""
-        comment_alias = comment_form.alias.data
-        comment_form.alias.data = ""
+        comment_nicname = comment_form.nicname.data
+        comment_form.nicname.data = ""
         if current_user.is_authenticated:
-            comment_alias = current_user.username
-        new_comment = Comment(comment = comment, comment_at = datetime.now(),comment_by = comment_alias, blog_id = id)
+            comment_nicname = current_user.username
+        new_comment = Comment(comment = comment, comment_at = datetime.now(),comment_by = comment_nicname, blog_id = id)
         new_comment.save_comment()
         return redirect(url_for("main.blog", id = blog.id))
 
@@ -58,10 +58,10 @@ def change_blog(id):
     edit_form = UpdateBlogForm()
 
     if edit_form.validate_on_submit():
-        blog.post_title = edit_form.title.data
+        blog.blog_title = edit_form.title.data
         edit_form.title.data = ""
-        blog.post_content = edit_form.post.data
-        edit_form.post.data = ""
+        blog.blog_content = edit_form.blog.data
+        edit_form.blog.data = ""
 
         db.session.add(blog)
         db.session.commit()
@@ -75,15 +75,15 @@ def change_blog(id):
 def new_blog():
     blog_form = BlogForm()
     if blog_form.validate_on_submit():
-        post_title = blog_form.title.data
+        blog_title = blog_form.title.data
         blog_form.title.data = ""
-        post_content = ""
-        blog_form.post.data = ""
-        new_blog = Blog(post_title = post_title,post_content = post_content,posted_at = datetime.now(),post_by = current_user.username,user_id = current_user.id)
-        new_blog.save_post()
+        blog_content= blog_form.blog.data
+        blog_form.blog.data = ""
+        new_blog = Blog(blog_title = blog_title,blog_content = blog_content,posted_at = datetime.now(),blog_by = current_user.username,user_id = current_user.id)
+        new_blog.save_blog()
         subscriber = Subscriber.query.all()
         for subscriber in subscriber:
-            notification_message(post_title, 
+            notification_message(blog_title, 
                             "email/notification", subscriber.email, new_blog = new_blog)
             pass
         return redirect(url_for("main.post", id = new_blog.id))

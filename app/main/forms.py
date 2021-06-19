@@ -4,17 +4,17 @@ from wtforms.validators import Required
 
 class BlogForm(FlaskForm):
     title = StringField("Blog title:", validators=[Required()])
-    post = TextAreaField("Type:", validators=[Required()])
+    blog = TextAreaField("Type:", validators=[Required()])
     submit = SubmitField("Post")
 
 class UpdateBlogForm(FlaskForm):
     title = StringField("Blog title", validators=[Required()])
-    post = TextAreaField("Type", validators=[Required()])
+    blog = TextAreaField("Type", validators=[Required()])
     submit = SubmitField("Update")
 
 class CommentForm(FlaskForm):
     comment = TextAreaField("Post Comment", validators=[Required()])
-    alias = StringField("Comment Alias")
+    nicname= StringField("Comment Alias")
     submit = SubmitField("Comment")
 
 class UpdateProfile(FlaskForm):
