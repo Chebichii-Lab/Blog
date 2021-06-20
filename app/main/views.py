@@ -86,7 +86,6 @@ def new_blog():
             # notification_message(blog_title, 
             #                 "email/notification", subscriber.email, new_blog = new_blog)
             pass
-        return redirect(url_for("main.post", id = new_blog.id))
+        return redirect(url_for("main.blog", id = new_blog.id))
     
-    return render_template("new_blog.html",
-                            post_form = blog_form)
+    return render_template("new_blog.html",blog_form = blog_form)

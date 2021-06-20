@@ -20,6 +20,14 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/" style="font-size:20px;">Home</a></li>
                 </ul>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    {%if current_user.is_authenticated%}
+                    <li class="nav-item">
+                      <a class="nav-link" href="/blog/new">Create Post</a>
+                    </li>
+                    {%endif%}
+                  </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                   {% if current_user.is_authenticated %}
