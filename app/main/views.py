@@ -1,4 +1,5 @@
 from flask import (render_template, request, redirect, url_for, abort)
+from flask.helpers import flash
 from . import main
 from ..models import User, Comment, Blog, Subscriber
 from flask_login import login_required, current_user
@@ -21,34 +22,16 @@ def index():
     return render_template("index.html",blogs= blogs,quote = quote)
 
 
-@main.route("/blog/<int:id>", methods = ["POST", "GET"])
+@main.route("/comment/<int:id>", methods = ["POST", "GET"])
 def make_comment(id):
-    blog = Blog.query.filter_by(id = id).first()
-    comments = Comment.query.filter_by(blog_id = id).all()
+    blog = Blog.query.filter_by(id = id).all()
+    blogComments = Comment.query.filter_by(blog_id=id).all()
     comment_form = CommentForm()
-    comment_count = len(comments)
-
     if comment_form.validate_on_submit():
         comment = comment_form.comment.data
-        comment_form.comment.data = ""
-        comment_nicname = comment_form.nicname.data
-        comment_form.nicname.data = ""
-        if current_user.is_authenticated:
-            comment_nicname = current_user.username
-        new_comment = Comment(comment = comment, comment_at = datetime.now(),comment_by = comment_nicname, blog_id = id)
+        new_comment = Comment(blog_id=id, comment=comment, user=current_user)
         new_comment.save_comment()
-        return redirect(url_for("main.blog", id = blog.id))
-
-    return render_template("blog.html",blog = blog,comments = comments,comment_form = comment_form,comment_count = comment_count)
-
-
-@main.route("/blog/<int:id>/<int:comment_id>/delete")
-def delete_comment(id, comment_id):
-    blog = Blog.query.filter_by(id = id).first()
-    comment = Comment.query.filter_by(id = comment_id).first()
-    db.session.delete(comment)
-    db.session.commit()
-    return redirect(url_for("main.blog", id = blog.id))
+    return render_template('comment.html', blog=blog, blog_comments=blogComments, comment_form=comment_form)
 
 
 @main.route("/blog/<int:id>/update", methods = ["POST", "GET"])
@@ -119,11 +102,13 @@ def update_profile(id):
     return render_template("profile/update.html",user = user,form = form)
 
 
-# @main.route("/profile/<int:id>/<int:post_id>/delete")
-# @login_required
-# def delete_blog(id, post_id):
-#     user = User.query.filter_by(id = id).first()
-#     blog = Blog.query.filter_by(id = post_id).first()
-#     db.session.delete(blog)
-#     db.session.commit()
-#     return redirect(url_for("main.profile", id = user.id))
+@main.route('/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def delete_comment(id):
+    comment =Comment.query.get_or_404(id)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('comment succesfully deleted')
+    return redirect (url_for('main.index'))
+
+

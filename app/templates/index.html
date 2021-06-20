@@ -29,12 +29,16 @@
               {{blog.blog_content | truncate (45) | safe}}
             </h3>
           </a>
+         
           <p class="post-meta">Posted by
             <a href="{{url_for('main.update_profile', id = blog.user_id)}}">{{blog.posted_at}}</a> on
             {{blog.posted_at.strftime('%B %d, %Y')}}
           </p>
         </div>
+        <a href="{{url_for('main.make_comment', id=blog.id)}}">cOMMENT
+        </a>
         <hr>
+       
         {%endfor%}
       </div>
     </div>

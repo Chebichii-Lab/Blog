@@ -21,5 +21,5 @@ class UpdateProfile(FlaskForm):
     first_name = StringField("First name")
     last_name = StringField("Last Name")
     bio = TextAreaField("Biography")
-    email = StringField("Email")
+    email = StringField("Email")    
     submit = SubmitField("Update")

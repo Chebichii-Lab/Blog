@@ -35,7 +35,7 @@
 </article>
 <hr>
 
-<section>
+<!-- <section>
     <div class="container">
         <div class="row">
             <div class="col-lg-2"></div>
@@ -53,39 +53,39 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-2 col-sm-2 col-xs-2">
-                                    <!-- <img src="https://image.ibb.co/jw55Ex/def_face.jpg"
-                                        class="img img-rounded img-fluid" /> -->
                                     <p class="text-secondary text-center">{{comment.posted.strftime('%B %d, %Y')}}</p>
                                 </div>
 
                                 <div class="col-md-10">
                                     <div>
-                                        <strong>{{comment.comment_by}}</strong>
+                                        <strong>{{comment.user_id}}</strong>
                                     </div>
                                     <div class="clearfix"></div>
                                     <p>{{comment.comment}}</p>
-                                    <div style="margin-right: 10px;">
+                                    <!-- <div style="margin-right: 10px;"> -->
                                         <!-- {%if current_user.is_authenticated%} -->
                                         <!-- <a href="{{url_for('main.fav_comment', id = post.id, comment_id = comment.id)}}" class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i>
                                             {{comment.like_count}}</a> -->
-                                        {%else%}
+                                        <!-- {%else%} -->
                                         <!-- <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i>
                                             {{comment.like_count}}</a> -->
                                         <!-- {%endif%} -->
-                                        {%if current_user.is_authenticated%}
-                                        <a href="{{url_for('main.delete_comment', id = post.id, comment_id = comment.id)}}" class="btn text-white btn-danger"> <i
+                                        <!-- {%if current_user.is_authenticated%} -->
+                                        <!-- <a href="{{url_for('main.make_comment', blog.id = blog.id, comment_id = comment.id)}}" class="btn text-white btn-danger"> <i
                                             class="far fa-trash-alt"></i>
-                                        </a>
-                                        {%endif%}
-                                    </div>
-                                </div>
+                                        </a> -->
+                                        <!-- {%endif%} -->
+                                    <!-- </div> -->
+                                <!-- </div>
                             </div>
                         </div>
                     </div>
                     {%endfor%}
-                    <br>
+                    <br> -->
 
                     <div class="make-comment">
+                        <a href="{{url_for('main.make_comment', id=blog.id)}}">cOMMENT
+                        </a>
                         <form class="form-group mt-2" method="POST">
                             {{comment_form.hidden_tag()}}
                             {{comment_form.nicname(class = "form-control", placeholder = "Enter a nickname")}}
@@ -97,12 +97,12 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                <!-- </div>
             </div>
         </div>
         <div class="col-lg-2"></div>
     </div>
 
     </div>
-</section>
+</section> --> -->
 {%endblock%}
