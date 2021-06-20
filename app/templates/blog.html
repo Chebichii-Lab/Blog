@@ -11,11 +11,11 @@
                         <a href="{{url_for('main.profile', id = blog.user_id)}}">{{blog.blog_by}}</a>
                         on {{blog.posted_at.strftime('%B %d, %Y')}}
                     </span>
-                    {%if comment_count == 1%}
+                    <!-- {%if comment_count == 1%}
                         <small>{{comment_count}} comment</small>
                     {%else%}
                         <small>{{comment_count}} comments</small>
-                    {%endif%}
+                    {%endif%} -->
                 </div>
             </div>
         </div>
@@ -53,9 +53,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-2 col-sm-2 col-xs-2">
-                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg"
-                                        class="img img-rounded img-fluid" />
-                                    <p class="text-secondary text-center">{{comment.comment_at.strftime('%B %d, %Y')}}</p>
+                                    <!-- <img src="https://image.ibb.co/jw55Ex/def_face.jpg"
+                                        class="img img-rounded img-fluid" /> -->
+                                    <p class="text-secondary text-center">{{comment.posted.strftime('%B %d, %Y')}}</p>
                                 </div>
 
                                 <div class="col-md-10">

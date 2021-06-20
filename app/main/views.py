@@ -119,11 +119,11 @@ def update_profile(id):
     return render_template("profile/update.html",user = user,form = form)
 
 
-@main.route("/profile/<int:id>/<int:post_id>/delete")
-@login_required
-def delete_blog(id, post_id):
-    user = User.query.filter_by(id = id).first()
-    blog = Blog.query.filter_by(id = post_id).first()
-    db.session.delete(blog)
-    db.session.commit()
-    return redirect(url_for("main.profile", id = user.id))
+# @main.route("/profile/<int:id>/<int:post_id>/delete")
+# @login_required
+# def delete_blog(id, post_id):
+#     user = User.query.filter_by(id = id).first()
+#     blog = Blog.query.filter_by(id = post_id).first()
+#     db.session.delete(blog)
+#     db.session.commit()
+#     return redirect(url_for("main.profile", id = user.id))
