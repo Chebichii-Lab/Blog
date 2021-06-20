@@ -56,17 +56,17 @@ def change_blog(id):
 @login_required
 def update_blog(id):
     blog = Blog.query.get_or_404(id)
-    form = BlogForm()
+    form = UpdateBlogForm()
     if form.validate_on_submit():
-        blog.title_blog = form.blogTitle.data
-        blog.description = form.blogDescription.data
+        blog.blog_title = form.title.data
+        blog.blog_content = form.blog.data
         db.session.add(blog)
         db.session.commit()
 
-        return redirect(url_for('main.allBlogs'))
+        return redirect(url_for('main.index'))
     elif request.method == 'GET':
-        form.blogTitle.data = blog.title_blog
-        form.blogDescription.data = blog.description
+        form.title.data = blog.blog_title
+        form.blog.data = blog.blog_content
     return render_template('update_blog.html', form=form)    
 
 
