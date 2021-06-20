@@ -1,7 +1,7 @@
 {% extends 'base.html'%} 
 {% block content%}
 
-<header class="masthead" style="background-image: url('https://picsum.photos/1900/1267?grayscale'); margin-top: 40px;">
+<header class="masthead">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -35,7 +35,8 @@
             {{blog.posted_at.strftime('%B %d, %Y')}}
           </p>
         </div>
-        <a href="{{url_for('main.make_comment', id=blog.id)}}">cOMMENT
+        <a href="{{url_for('main.make_comment', id=blog.id)}}">COMMENT
+          <a href="{{url_for('main.delete_blog',id = blog.id)}}"><i class="fas fa-trash text-danger"></i>DELETE</a>
         </a>
         <hr>
        

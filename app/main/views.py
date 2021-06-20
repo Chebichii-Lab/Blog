@@ -52,6 +52,23 @@ def change_blog(id):
 
     return render_template("change_blog.html", blog = blog,edit_form = edit_form)
 
+@main.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
+def update_blog(id):
+    blog = Blog.query.get_or_404(id)
+    form = BlogForm()
+    if form.validate_on_submit():
+        blog.title_blog = form.blogTitle.data
+        blog.description = form.blogDescription.data
+        db.session.add(blog)
+        db.session.commit()
+
+        return redirect(url_for('main.allBlogs'))
+    elif request.method == 'GET':
+        form.blogTitle.data = blog.title_blog
+        form.blogDescription.data = blog.description
+    return render_template('updateBlog.html', form=form)    
+
 
 @main.route("/blog/new", methods = ["POST", "GET"])
 @login_required
@@ -74,14 +91,13 @@ def new_blog():
     return render_template("new_blog.html",blog_form = blog_form)
 
 
-@main.route("/profile/<int:id>/<int:blog_id>/delete")
+@main.route('/deleteblog/<int:id>', methods=['GET', 'POST'])
 @login_required
-def delete_blog(id, blog_id):
-    user = User.query.filter_by(id = id).first()
-    blog = Blog.query.filter_by(id = blog_id).first()
+def delete_blog(id):
+    blog = Blog.query.get_or_404(id)
     db.session.delete(blog)
     db.session.commit()
-    return redirect(url_for("main.profile", id = user.id))
+    return redirect(url_for('main.index'))   
 
 
 @main.route("/profile/<int:id>/update", methods = ["POST", "GET"])
