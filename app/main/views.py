@@ -89,3 +89,13 @@ def new_blog():
         return redirect(url_for("main.blog", id = new_blog.id))
     
     return render_template("new_blog.html",blog_form = blog_form)
+
+
+@main.route("/profile/<int:id>/<int:blog_id>/delete")
+@login_required
+def delete_blog(id, blog_id):
+    user = User.query.filter_by(id = id).first()
+    blog = Blog.query.filter_by(id = blog_id).first()
+    db.session.delete(blog)
+    db.session.commit()
+    return redirect(url_for("main.profile", id = user.id))
