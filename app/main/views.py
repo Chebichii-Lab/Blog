@@ -67,7 +67,7 @@ def update_blog(id):
     elif request.method == 'GET':
         form.blogTitle.data = blog.title_blog
         form.blogDescription.data = blog.description
-    return render_template('updateBlog.html', form=form)    
+    return render_template('update_blog.html', form=form)    
 
 
 @main.route("/blog/new", methods = ["POST", "GET"])
