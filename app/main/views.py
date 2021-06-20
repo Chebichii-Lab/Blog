@@ -100,24 +100,6 @@ def delete_blog(id):
     return redirect(url_for('main.index'))   
 
 
-@main.route("/profile/<int:id>/update", methods = ["POST", "GET"])
-@login_required
-def update_profile(id):
-    user = User.query.filter_by(id = id).first()
-    form = UpdateProfile()
-    if form.validate_on_submit():
-        user.first_name = form.first_name.data
-        user.last_name = form.last_name.data
-        user.email = form.email.data
-        user.bio = form.bio.data
-
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for("main.profile", id = id))
-    
-    return render_template("profile/update.html",user = user,form = form)
-
-
 @main.route('/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def delete_comment(id):
