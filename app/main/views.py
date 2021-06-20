@@ -86,7 +86,7 @@ def new_blog():
             # notification_message(blog_title, 
             #                 "email/notification", subscriber.email, new_blog = new_blog)
             pass
-        return redirect(url_for("main.blog", id = new_blog.id))
+        return redirect(url_for("main.new_blog", id = new_blog.id))
     
     return render_template("new_blog.html",blog_form = blog_form)
 
@@ -96,6 +96,34 @@ def new_blog():
 def delete_blog(id, blog_id):
     user = User.query.filter_by(id = id).first()
     blog = Blog.query.filter_by(id = blog_id).first()
+    db.session.delete(blog)
+    db.session.commit()
+    return redirect(url_for("main.profile", id = user.id))
+
+
+@main.route("/profile/<int:id>/update", methods = ["POST", "GET"])
+@login_required
+def update_profile(id):
+    user = User.query.filter_by(id = id).first()
+    form = UpdateProfile()
+    if form.validate_on_submit():
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
+        user.email = form.email.data
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("main.profile", id = id))
+    
+    return render_template("profile/update.html",user = user,form = form)
+
+
+@main.route("/profile/<int:id>/<int:post_id>/delete")
+@login_required
+def delete_blog(id, post_id):
+    user = User.query.filter_by(id = id).first()
+    blog = Blog.query.filter_by(id = post_id).first()
     db.session.delete(blog)
     db.session.commit()
     return redirect(url_for("main.profile", id = user.id))

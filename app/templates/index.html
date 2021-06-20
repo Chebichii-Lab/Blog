@@ -21,17 +21,17 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         {%for blog in blogs[::-1]%}
         <div class="post-preview">
-          <a href="{{url_for('main.blog', id = blog.id)}}">
-            <h2 class="post-title">
-              {{blog.title}}
+          <a href="{{url_for('main.new_blog', id = blog.id)}}">
+            <h2 class="blog-title">
+              {{blog.blog_title}}
             </h2>
-            <h3 class="post-subtitle">
-              {{blog.content | truncate (45) | safe}}
+            <h3 class="blo-subtitle">
+              {{blog.blog_content | truncate (45) | safe}}
             </h3>
           </a>
           <p class="post-meta">Posted by
-            <a href="{{url_for('main.profile', id = post.user_id)}}">{{blog.posted}}</a> on
-            {{blog.posted.strftime('%B %d, %Y')}}
+            <a href="{{url_for('main.update_profile', id = blog.user_id)}}">{{blog.posted_at}}</a> on
+            {{blog.posted_at.strftime('%B %d, %Y')}}
           </p>
         </div>
         <hr>
