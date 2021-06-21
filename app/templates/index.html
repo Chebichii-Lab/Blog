@@ -31,22 +31,24 @@
         {%for blog in blogs[::-1]%}
         <div class="post-preview">
           <a href="{{url_for('main.new_blog', id = blog.id)}}">
-            <h2 class="blog-title">
+            <h2 class="blog-title" style="color: white;">
               {{blog.blog_title}}
             </h2>
-            <h3 class="blo-subtitle">
+            <h3 class="blo-subtitle" style="color: white;">
               {{blog.blog_content | truncate (45) | safe}}
             </h3>
           </a>
          
-          <p class="post-meta">Posted by
-            <a href="">{{blog.posted_at}}</a> on
+          <p class="post-meta" style="color: white; font-size:20px;">Posted by
+            <a href="" style="color: white;">{{blog.posted_at}}</a> on
             {{blog.posted_at.strftime('%B %d, %Y')}}
           </p>
         </div>
-        <a href="{{url_for('main.update_blog', id=blog.id)}}">UPDATE YOUR BLOG
-        <a href="{{url_for('main.make_comment', id=blog.id)}}">COMMENT
-          <a href="{{url_for('main.delete_blog',id = blog.id)}}"><i class="fas fa-trash text-danger"></i>DELETE</a>
+        <a href="{{url_for('main.update_blog', id=blog.id)}}" style="color: white; font-size: 20px; font-weight: bold;">UPDATE YOUR BLOG
+          <br>
+        <a href="{{url_for('main.make_comment', id=blog.id)}}" style="color: white; font-size: 20px; font-weight: bold;">COMMENT
+          <br>
+          <a href="{{url_for('main.delete_blog',id = blog.id)}}" style="color: white; font-size: 20px; font-weight: bold;"><i class="fas fa-trash text-danger"></i>DELETE</a>
         </a>
         <hr>
        
