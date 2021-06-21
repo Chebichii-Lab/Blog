@@ -1,13 +1,19 @@
 {%extends "base.html"%}
 
 {%block content%}
-<br><br><br>
-<div class="container">
-    <div class="container">
+<style>
+    #background{
+      background-image: url('../static/alex-shutin-hM5NONzbyTY-unsplash.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+  </style>
+<div class="container" id="background">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <h3 style="color: white;">Create a new blog post</h3>
+                <h3 style="color: black; font-size: 30px;">CREATE A NEW BLOG POST</h3>
                 <form method="post">
                     {{blog_form.hidden_tag()}}
                     {{blog_form.title.label}} {{blog_form.title(class = "form-control")}}
@@ -19,8 +25,6 @@
             </div>
             <div class="col-md-2"></div>
         </div>
-        
-    </div>
 </div>
 
 {%endblock%}
