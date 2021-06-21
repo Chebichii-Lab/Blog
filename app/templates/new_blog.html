@@ -9,11 +9,13 @@
       background-size: cover;
     }
   </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 <div class="container" id="background">
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <h3 style="color: white; font-size: 30px;">CREATE A NEW BLOG POST</h3>
+            <div class="col-md-9">
+                <h3 style="color: white; font-size: 40px; font-weight: bold; font-family: 'Dancing Script', cursive;">CREATE A NEW BLOG POST</h3>
                 <form method="post" style="color: white;">
                     {{blog_form.hidden_tag()}}
                     {{blog_form.title.label}} {{blog_form.title(class = "form-control")}}
