@@ -14,10 +14,10 @@
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-8 col-md-10">
           <div class="site-heading">
-            <span class="subheading" style="color: white; font-size: 20px;"><i class="fas fa-quote-left"></i> <em>{{quote.quote}}</em> <i class="fas fa-quote-right"></i></span>
-            <h2 style="color: white;">{{quote.author}}</h2>
+            <span class="subheading" style="color: white; font-size: 20px; text-align: center;"><i class="fas fa-quote-left"></i> <em>{{quote.quote}}</em> <i class="fas fa-quote-right"></i></span>
+            <h2 style="color: white; text-align: center;">{{quote.author}}</h2>
           </div>
         </div>
       </div>
@@ -25,21 +25,23 @@
   </header>
   
   <!-- Main Content -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         {%for blog in blogs[::-1]%}
         <div class="post-preview">
           <a href="{{url_for('main.new_blog', id = blog.id)}}">
-            <h2 class="blog-title" style="color: white;">
+            <h2 class="blog-title" style="color: white; font-family: 'Dancing Script', cursive; font-size: 50px; font-weight: bold;">
               {{blog.blog_title}}
             </h2>
-            <h3 class="blo-subtitle" style="color: white;">
+            <h3 class="blo-subtitle" style="color: white; font-family: 'Dancing Script', cursive; font-size: 40px;">
               {{blog.blog_content | truncate (45) | safe}}
             </h3>
           </a>
          
-          <p class="post-meta" style="color: white; font-size:20px;">Posted by
+          <p class="post-meta" style="color: white; font-size:20px; font-family: 'Dancing Script', cursive; font-weight: bold;" >Posted by
             <a href="" style="color: white;">{{blog.posted_at}}</a> on
             {{blog.posted_at.strftime('%B %d, %Y')}}
           </p>
