@@ -38,6 +38,7 @@ In your terminal, run the following commands;
 4. Flask
 
 ## Live Site 
+View [live](https://blog254.herokuapp.com/).
 
 
 ## License
