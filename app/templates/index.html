@@ -44,11 +44,11 @@
             {{blog.posted_at.strftime('%B %d, %Y')}}
           </p>
         </div>
-        <a href="{{url_for('main.update_blog', id=blog.id)}}" style="color: white; font-size: 20px; font-weight: bold;">UPDATE YOUR BLOG
+        <a href="{{url_for('main.update_blog', id=blog.id)}}" style="color: blue; font-size: 30px; font-weight: bold;">UPDATE YOUR BLOG
           <br>
-        <a href="{{url_for('main.make_comment', id=blog.id)}}" style="color: white; font-size: 20px; font-weight: bold;">COMMENT
+        <a href="{{url_for('main.make_comment', id=blog.id)}}" style="color: green; font-size: 30px; font-weight: bold;">COMMENT
           <br>
-          <a href="{{url_for('main.delete_blog',id = blog.id)}}" style="color: white; font-size: 20px; font-weight: bold;"><i class="fas fa-trash text-danger"></i>DELETE</a>
+          <a href="{{url_for('main.delete_blog',id = blog.id)}}" style="color: red; font-size: 30px; font-weight: bold;"><i class="fas fa-trash text-danger"></i>DELETE</a>
         </a>
         <hr>
        
