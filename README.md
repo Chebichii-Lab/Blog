@@ -42,4 +42,4 @@ View [live](https://blog254.herokuapp.com/).
 
 
 ## License
-This project is under the MIT licence.
+This project is under the [MIT](LICENSE) license.
