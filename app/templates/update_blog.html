@@ -2,11 +2,21 @@
 {% import 'bootstrap/wtf.html' as wtf%}
 
 {% block content %}
-<div class="container">
+<style>
+    #background1{
+      background-image: url('../static/alex-shutin-hM5NONzbyTY-unsplash.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+<div class="container" id="background1">
 <div class="row">
 <div class="col-md-2"> </div>
 <div class="col-md-8 mt-3 p-5">
-    <h3 class="mt-3 pb-3 text-center">Update Blog</h3>
+    <h3 class="mt-3 pb-3 text-center" style="font-size:50px; color: white; font-weight: bold; font-family: 'Dancing Script', cursive;">UPDATE THE BLOG</h3>
     <hr>
 {{wtf.quick_form(form)}}
 
